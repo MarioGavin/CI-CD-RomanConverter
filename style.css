@@ -1,0 +1,309 @@
+/* Cyberpunk CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+}
+
+/* Cyberpunk Color Scheme */
+:root {
+    --neon-blue: #00f3ff;
+    --electric-pink: #ff00ff;
+    --cyber-purple: #bc13fe;
+    --matrix-green: #0fff50;
+    --cyber-black: #0a0a0f;
+    --hud-yellow: #ffe600;
+    --cyber-glow: 0 0 20px var(--neon-blue),
+                0 0 40px var(--electric-pink),
+                0 0 60px var(--cyber-purple);
+}
+
+/* CRT Screen Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0.1) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+    animation: scanline 6s linear infinite;
+}
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: var(--cyber-black);
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--neon-blue);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Cyber Grid Background */
+body::after {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: 
+        linear-gradient(90deg, 
+            rgba(0, 243, 255, 0.05) 1px, 
+            transparent 1px),
+        linear-gradient(180deg, 
+            rgba(0, 243, 255, 0.05) 1px, 
+            transparent 1px);
+    background-size: 20px 20px;
+    transform: rotate(45deg) translate(-25%, -25%);
+    animation: gridMove 40s linear infinite;
+    z-index: -1;
+}
+
+@keyframes gridMove {
+    0% { transform: rotate(45deg) translate(-25%, -25%); }
+    100% { transform: rotate(45deg) translate(-75%, -75%); }
+}
+
+/* Main Container */
+.converter {
+    background: rgba(10, 10, 15, 0.95);
+    border: 3px solid var(--neon-blue);
+    border-image: linear-gradient(
+        45deg,
+        var(--neon-blue),
+        var(--electric-pink),
+        var(--cyber-purple)
+    ) 1;
+    padding: 3rem;
+    box-shadow: var(--cyber-glow),
+               inset 0 0 30px rgba(0, 243, 255, 0.3);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    clip-path: polygon(
+        0 20px, 20px 0, calc(100% - 20px) 0, 
+        100% 20px, 100% calc(100% - 20px), 
+        calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px)
+    );
+    transition: all 0.3s ease;
+}
+
+.converter:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--cyber-glow),
+               0 0 50px rgba(0, 243, 255, 0.5),
+               inset 0 0 40px rgba(0, 243, 255, 0.5);
+}
+
+/* Cyberpunk Typography */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: var(--matrix-green);
+    text-shadow: 
+        0 0 10px var(--matrix-green),
+        0 0 20px var(--matrix-green),
+        0 0 30px var(--matrix-green);
+    letter-spacing: 4px;
+    position: relative;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--neon-blue),
+        var(--electric-pink),
+        transparent
+    );
+}
+
+/* Input Fields Cyber Style */
+.input-group {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--hud-yellow);
+    text-shadow: 0 0 5px var(--hud-yellow);
+    letter-spacing: 2px;
+    animation: flicker 2s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.8; text-shadow: 0 0 5px var(--hud-yellow); }
+    100% { opacity: 1; text-shadow: 0 0 10px var(--hud-yellow), 0 0 20px var(--hud-yellow); }
+}
+
+.input-field {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--neon-blue);
+    color: var(--matrix-green);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 243, 255, 0.2),
+        0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+.input-field:focus {
+    border-color: var(--electric-pink);
+    box-shadow: 
+        inset 0 0 20px rgba(255, 0, 255, 0.3),
+        0 0 40px rgba(255, 0, 255, 0.2);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Cyber Button */
+.convert-btn {
+    background: linear-gradient(
+        45deg,
+        var(--electric-pink),
+        var(--cyber-purple),
+        var(--neon-blue)
+    );
+    color: var(--cyber-black);
+    padding: 1.2rem 2.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(
+        10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%
+    );
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.convert-btn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: btnGlow 3s infinite;
+}
+
+@keyframes btnGlow {
+    0% { transform: rotate(45deg) translate(-50%, -50%); }
+    100% { transform: rotate(45deg) translate(50%, 50%); }
+}
+
+.convert-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 30px var(--electric-pink),
+        0 0 50px var(--cyber-purple);
+}
+
+/* Result Display */
+.result {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-blue);
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--matrix-green);
+    text-shadow: 0 0 10px var(--matrix-green);
+    position: relative;
+    overflow: hidden;
+}
+
+.result::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 243, 255, 0.2),
+        transparent
+    );
+    animation: scan 3s infinite;
+}
+
+@keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Error State */
+.error {
+    animation: glitch 0.5s infinite;
+    color: var(--electric-pink);
+    border-color: var(--electric-pink);
+    text-shadow: 0 0 10px var(--electric-pink);
+}
+
+@keyframes glitch {
+    0% { clip-path: inset(10% 0 20% 0); }
+    50% { clip-path: inset(30% 0 10% 0); }
+    100% { clip-path: inset(10% 0 20% 0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .converter {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .input-field {
+        font-size: 1rem;
+    }
+}
