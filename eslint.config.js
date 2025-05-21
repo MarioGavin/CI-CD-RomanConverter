@@ -16,7 +16,7 @@ module.exports = [
             ],
             "quotes": [
                 "error",
-                "single"
+                "double"
             ],
             "no-unused-vars": "off",
             "semi": [
