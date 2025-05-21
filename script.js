@@ -6,64 +6,63 @@ const romanMap = new Map([
 
 function validateInteger(num) {
     if (typeof num !== 'number' || !Number.isInteger(num)) {
-      throw new Error("Invalid integer input");
+        throw new Error('Invalid integer input');
     }
     if (num < 1 || num > 3999) {
-      throw new Error("Number out of range (1-3999)");
+        throw new Error('Number out of range (1-3999)');
     }
-  }
-  
-  function validateRoman(roman) {
+}
+
+function validateRoman(roman) {
     if (typeof roman !== 'string') {
-      throw new Error("Invalid Roman numeral input");
+        throw new Error('Invalid Roman numeral input');
     }
     
     if (!/^[IVXLCDM]+$/i.test(roman)) {
-      throw new Error("Invalid characters in Roman numeral");
+        throw new Error('Invalid characters in Roman numeral');
     }
     
     const validPattern = /^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
     if (!validPattern.test(roman.toUpperCase())) {
-      throw new Error("Invalid Roman numeral format");
+        throw new Error('Invalid Roman numeral format');
     }
-  }
-  
-  // Update conversion functions
-  function toRoman(num) {
+}
+
+function toRoman(num) {
     validateInteger(num);
     let result = '';
     for (const [key, value] of romanMap) {
-      while (num >= value) {
-        result += key;
-        num -= value;
-      }
+        while (num >= value) {
+            result += key;
+            num -= value;
+        }
     }
     return result;
-  }
-  
-  function fromRoman(roman) {
+}
+
+function fromRoman(roman) {
     validateRoman(roman);
     roman = roman.toUpperCase();
     let total = 0;
     
     for (let i = 0; i < roman.length; i++) {
-      const current = romanMap.get(roman[i]);
-      const next = romanMap.get(roman[i + 1]);
-      
-      if (current === undefined) {
-        throw new Error(`Invalid Roman numeral character: ${roman[i]}`);
-      }
-      
-      if (next && current < next) {
-        total += next - current;
-        i++;
-      } else {
-        total += current;
-      }
+        const current = romanMap.get(roman[i]);
+        const next = romanMap.get(roman[i + 1]);
+        
+        if (current === undefined) {
+            throw new Error(`Invalid Roman numeral character: ${roman[i]}`);
+        }
+        
+        if (next && current < next) {
+            total += next - current;
+            i++;
+        } else {
+            total += current;
+        }
     }
     
     return total;
-  }
+}
 
 function convert() {
     const numInput = document.getElementById('number-input');
@@ -92,7 +91,6 @@ function convert() {
     }
 }
 
-// Real-time input handling
 document.getElementById('number-input').addEventListener('input', function() {
     this.value = this.value.replace(/[^0-9]/g, '');
     if (this.value) document.getElementById('roman-input').value = '';
