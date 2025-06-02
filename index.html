@@ -1,40 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Mida A/B Testing Script -->
-<script type="text/javascript" async src="https://cdn.mida.so/js/optimize.js?key=ryMZOEQ6R2396BljzpgDW7">
-
-    mida('on', 'experiment.activated', function(experiment) {
-    console.log('Experiment activated:', experiment.name);
-    console.log('Variant assigned:', experiment.variant.name);
-    
-    // Muestra en pantalla qué variante estás viendo
-    const variantInfo = document.createElement('div');
-    variantInfo.style.position = 'fixed';
-    variantInfo.style.bottom = '10px';
-    variantInfo.style.right = '10px';
-    variantInfo.style.backgroundColor = 'rgba(0,0,0,0.7)';
-    variantInfo.style.color = 'white';
-    variantInfo.style.padding = '10px';
-    variantInfo.style.zIndex = '9999';
-    variantInfo.textContent = `Variante asignada: ${experiment.variant.name}`;
-    document.body.appendChild(variantInfo);
-});
-</script>
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4XJXJTF0HB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4XJXJTF0HB');
-</script>
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyberpunk Numeric Converter</title>
+    
+    <!-- Mida A/B Testing Script -->
+    <script type="text/javascript">
+        // Carga asíncrona del script de Mida
+        (function(m,i,d,a){
+            m[d] = m[d] || function(){(m[d].q = m[d].q || []).push(arguments)};
+            var s = i.createElement("script");
+            s.async = 1;
+            s.src = a;
+            var n = i.getElementsByTagName("script")[0];
+            n.parentNode.insertBefore(s, n);
+        })(window, document, "mida", "https://cdn.mida.so/js/optimize.js?key=ryMZOEQ6R2396BljzpgDW7");
+        
+        // Configuración de eventos después de cargar Mida
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof mida === 'function') {
+                mida('on', 'experiment.activated', function(experiment) {
+                    console.log('Experiment activated:', experiment.name);
+                    console.log('Variant assigned:', experiment.variant.name);
+                    
+                    // Muestra en pantalla qué variante estás viendo
+                    const variantInfo = document.createElement('div');
+                    variantInfo.style.position = 'fixed';
+                    variantInfo.style.bottom = '10px';
+                    variantInfo.style.right = '10px';
+                    variantInfo.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                    variantInfo.style.color = 'white';
+                    variantInfo.style.padding = '10px';
+                    variantInfo.style.zIndex = '9999';
+                    variantInfo.textContent = `Variante asignada: ${experiment.variant.name}`;
+                    document.body.appendChild(variantInfo);
+                });
+            } else {
+                console.error('Mida no se ha cargado correctamente');
+            }
+        });
+    </script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XJXJTF0HB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-4XJXJTF0HB');
+    </script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -62,4 +78,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
