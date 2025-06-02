@@ -64,6 +64,7 @@ function fromRoman(roman) {
     return total;
 }
 
+
 function convert() {
     const numInput = document.getElementById("number-input");
     const romanInput = document.getElementById("roman-input");
@@ -75,35 +76,38 @@ function convert() {
         if (numInput.value) {
             const num = parseInt(numInput.value);
             if (isNaN(num) || num < 1 || num > 3999) throw new Error("INVALID DIGITAL SIGNAL");
-            romanInput.value = toRoman(num);
-            result.textContent = `TRANSLATION: ${num} → ${romanInput.value}`;
-
-            // Track conversion to roman
-            gtag("event", "number_to_roman", {
-                "integer_value": num,
-                "roman_result": romanResult
-            });
+            const romanResult = toRoman(num);
+            romanInput.value = romanResult;
+            result.textContent = `TRANSLATION: ${num} → ${romanResult}`;
             
+            // Track conversion to Roman
+            gtag('event', 'number_to_roman', {
+                'integer_value': num,
+                'roman_result': romanResult
+            });
+
         } else if (romanInput.value) {
             const roman = romanInput.value.trim().toUpperCase();
             if (!/^M*(CM)?(CD)?D?(XC)?(XL)?L?X{0,3}(IX)?(IV)?V?I{0,3}$/.test(roman)) {
                 throw new Error("CORRUPTED ANCIENT CODE");
             }
-            numInput.value = fromRoman(roman);
-            result.textContent = `DECRYPTION: ${roman} → ${numInput.value}`;
-
+            const intResult = fromRoman(roman);
+            numInput.value = intResult;
+            result.textContent = `DECRYPTION: ${roman} → ${intResult}`;
+            
             // Track conversion to integer
-            gtag("event", "roman_to_number", {
-                "roman_value": roman,
-                "integer_result": intResult
+            gtag('event', 'roman_to_number', {
+                'roman_value': roman,
+                'integer_result': intResult
             });
         }
     } catch (error) {
         result.textContent = `ERROR: ${error.message}`;
         result.classList.add("error");
-
-        gtag("event", "conversion_error", {
-            "error_message": error.message
+        
+        // Track conversion error
+        gtag('event', 'conversion_error', {
+            'error_message': error.message
         });
     }
 }
