@@ -76,38 +76,41 @@ function convert() {
         if (numInput.value) {
             const num = parseInt(numInput.value);
             if (isNaN(num) || num < 1 || num > 3999) throw new Error("INVALID DIGITAL SIGNAL");
+            
+            // Guardar el resultado en una variable
             const romanResult = toRoman(num);
             romanInput.value = romanResult;
             result.textContent = `TRANSLATION: ${num} → ${romanResult}`;
-            
-            // Track conversion to Roman
-            gtag('event', 'number_to_roman', {
-                'integer_value': num,
-                'roman_result': romanResult
-            });
 
+            // Usar la variable definida
+            gtag("event", "number_to_roman", {
+                "integer_value": num,
+                "roman_result": romanResult
+            });
+            
         } else if (romanInput.value) {
             const roman = romanInput.value.trim().toUpperCase();
             if (!/^M*(CM)?(CD)?D?(XC)?(XL)?L?X{0,3}(IX)?(IV)?V?I{0,3}$/.test(roman)) {
                 throw new Error("CORRUPTED ANCIENT CODE");
             }
+            
+            // Guardar el resultado en una variable
             const intResult = fromRoman(roman);
             numInput.value = intResult;
             result.textContent = `DECRYPTION: ${roman} → ${intResult}`;
-            
-            // Track conversion to integer
-            gtag('event', 'roman_to_number', {
-                'roman_value': roman,
-                'integer_result': intResult
+
+            // Usar la variable definida
+            gtag("event", "roman_to_number", {
+                "roman_value": roman,
+                "integer_result": intResult
             });
         }
     } catch (error) {
         result.textContent = `ERROR: ${error.message}`;
         result.classList.add("error");
-        
-        // Track conversion error
-        gtag('event', 'conversion_error', {
-            'error_message': error.message
+
+        gtag("event", "conversion_error", {
+            "error_message": error.message
         });
     }
 }
