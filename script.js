@@ -79,9 +79,9 @@ function convert() {
             result.textContent = `TRANSLATION: ${num} → ${romanInput.value}`;
 
             // Track conversion to roman
-            gtag('event', 'number_to_roman', {
-                'integer_value': num,
-                'roman_result': romanResult
+            gtag("event", "number_to_roman", {
+                "integer_value": num,
+                "roman_result": romanResult
             });
             
         } else if (romanInput.value) {
@@ -93,17 +93,17 @@ function convert() {
             result.textContent = `DECRYPTION: ${roman} → ${numInput.value}`;
 
             // Track conversion to integer
-            gtag('event', 'roman_to_number', {
-                'roman_value': roman,
-                'integer_result': intResult
+            gtag("event", "roman_to_number", {
+                "roman_value": roman,
+                "integer_result": intResult
             });
         }
     } catch (error) {
         result.textContent = `ERROR: ${error.message}`;
         result.classList.add("error");
 
-        gtag('event', 'conversion_error', {
-            'error_message': error.message
+        gtag("event", "conversion_error", {
+            "error_message": error.message
         });
     }
 }
