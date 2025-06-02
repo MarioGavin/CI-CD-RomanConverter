@@ -117,11 +117,3 @@ document.getElementById("roman-input").addEventListener("input", function() {
     this.value = this.value.toUpperCase().replace(/[^IVXLCDM]/g, "");
     if (this.value) document.getElementById("number-input").value = "";
 });
-
-gtag('event', 'roman_to_number', {
-    'intNumber': numInput.value
-});
-
-gtag('event', 'number_to_roman', {
-    'romanNumber': romanInput.value
-});
