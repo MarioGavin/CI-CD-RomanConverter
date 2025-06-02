@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Mida A/B Testing Script -->
-<script type="text/javascript" async src="https://cdn.mida.so/js/optimize.js?key=ryMZOEQ6R2396BljzpgDW7"></script>
+<script type="text/javascript" async src="https://cdn.mida.so/js/optimize.js?key=ryMZOEQ6R2396BljzpgDW7">
+
+    mida('on', 'experiment.activated', function(experiment) {
+    console.log('Experiment activated:', experiment.name);
+    console.log('Variant assigned:', experiment.variant.name);
+    
+    // Muestra en pantalla qué variante estás viendo
+    const variantInfo = document.createElement('div');
+    variantInfo.style.position = 'fixed';
+    variantInfo.style.bottom = '10px';
+    variantInfo.style.right = '10px';
+    variantInfo.style.backgroundColor = 'rgba(0,0,0,0.7)';
+    variantInfo.style.color = 'white';
+    variantInfo.style.padding = '10px';
+    variantInfo.style.zIndex = '9999';
+    variantInfo.textContent = `Variante asignada: ${experiment.variant.name}`;
+    document.body.appendChild(variantInfo);
+});
+</script>
     
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XJXJTF0HB"></script>
